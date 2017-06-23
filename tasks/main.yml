@@ -1,0 +1,36 @@
+---
+#as template used flawless_retard and geerlingui
+- hosts: front
+  gather_facts: yes
+#vars to /defaults and /vars in final version 
+  vars: 
+     # defaults file for NLCR.apache
+    ansible_serv_specific: "setServ"
+    ansible_serv: "httpd"
+    ansible_certbot_var: "apache"
+#Nginx
+#TD determine with when we want nginx and apache
+#TD determine linux family
+    webroot: "/var/www/webarchiv.cz/public_html"
+    ansible_owner: "apache"
+#www-data
+    ssl_cert_country: "CZ"
+    ssl_cert_locality: "Klementinum"
+    ssl_cert_organization: "NLCR"
+    ssl_cert_state: "Prague"
+    ssl_cert_days: "365"
+    ssl_cert_email: "webarchiv@nkp.cz"
+    ssl_cert_common_name: "*.webarchiv.cz"
+    ssl_cert_fields: "/C={{ssl_cert_country}}/ST={{ssl_cert_state}}/L={{ssl_cert_locality}}/O={{ssl_cert_organization}}/CN={{ssl_certs_common_name}}"
+    service_host: "www.webarchiv.cz"
+    service_admin_email: "webarchiv@nkp.cz"
+    service_name: "webarchiv"
+    service_root_directory: "/var/www/"
+    letsencrypt_ssl_dir: "/etc/letsencrypt/live"
+  tasks:
+   - name: 'Including {{ ansible_serv_specific }} specific {{ ssl_cert_locality }}  playbook.'
+     include: "{{ ansible_serv_specific }}.yml"
+   - name: '3_Copying Skuska.cz'
+     copy: src="../files/webarchiv.cz" dest="/var/www/"  owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644
+   - name: 'Inluding certification for {{ ansible_serv }}'
+     include: "certification.yml"

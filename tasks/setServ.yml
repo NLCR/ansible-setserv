@@ -1,0 +1,56 @@
+---
+# tasks file for NLCR.apache
+#inspired by Ngins install by @flawless_retard
+#
+#- name: install system updates for centos systems
+#  yum: name=* state=latest update_cache=yes
+#  when: ansible_distribution == "CentOS"
+#
+#There is no equivalent of apt-transport-https, yum can speak over HTTPS out of the box, but you should ensure that the version of yum you are using has the sslverify option defaulted to enabled; some versions of yum do not. If your version does not, you should set it to enabled. It is critical to verify SSL certificates.
+#- name: Apt via https
+#  apt: name=apt-transport-https state=present
+#
+#- hosts: front
+#  tasks:
+   - name: Install Pythian things
+     yum: name={{ item }} state=latest
+     with_items: 
+         - python
+         - python-pip
+         - python-devel
+#
+   - name: Pexpect for unexpected
+     pip: name=pexpect state=present
+   - name: Install other important modules
+     yum: name={{ item }} state=present
+     with_items:
+#         - libaugeas0
+#         - augeas-lenses
+         - augeas-libs
+         - ca-certificates
+         - libss-devel
+#
+#
+   - name: Install Apache and certbot
+     yum: name={{item}} state=present
+     with_items: 
+         - '{{ansible_serv}}'
+         - mod_ssl
+#to rework         - python-certbot-{{ ansible_certbot_var }}
+#to rework   - name: Lets Encrypt client
+#     git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
+# Sustainability of apps
+   - name: Services are running and starts after reboot
+     service: name={{item}} state=started enabled=yes
+     with_items:
+           - '{{ansible_serv}}'
+   - name: Restarting services
+     service: name={{item}} state=restarted
+     with_items:
+         - '{{ansible_serv}}'
+#
+#- name: remove default nginx default
+#  file: path=/etc/nginx/sites-enabled/default state=absent
+# https://weakdh.org/
+   - name: Generate dhparams file
+     shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048

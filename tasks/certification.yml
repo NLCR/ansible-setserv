@@ -1,0 +1,22 @@
+---
+#thanks to @flawless_retard
+- name: 'Create dirs'
+  file: path=/etc/{{ ansible_serv }}/sites-available owner={{ ansible_owner }} group={{ ansible_owner }} state=link state=directory
+- name: 'Create dirs'
+  file: path=/etc/{{ ansible_serv }}/sites-enabled owner={{ ansible_owner }} group={{ ansible_owner }} state=link state=directory
+- name: 'Add http {{ ansible_serv }} configuration'
+  template: src=../files/http.conf.j2 dest=/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.http.conf owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644 
+- name: 'Add http {{ ansible_serv }} symlink'
+  file: src=/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.http.conf dest=/etc/{{ ansible_serv }}/sites-enabled/{{ service_name }}.http owner={{ ansible_owner }} group={{ ansible_owner }} state=link 
+- name: 'Reload {{ ansible_serv }}'
+  service: name={{ ansible_serv }} state=reloaded
+- name: 'Create certificate'
+  shell: ./certbot-auto certonly --webroot --email {{ service_admin_email }} --agree-tos --webroot-path={{ webroot }} -d {{ service_host }};
+  args:
+    chdir: /opt/certbot
+- name: 'Add https {{ ansible_serv }} configuration'
+  template: src=../files/https.conf.j2 dest=/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.https.conf owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644 
+- name: 'Add external https {{ ansible_serv }} symlink'
+  file: src=/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.https.conf dest=/etc/{{ ansible_serv }}/sites-enabled/{{ service_name }}.https owner={{ ansible_owner }} group={{ ansible_owner }} state=link 
+- name: 'Reload {{ ansible_serv }}'
+  service: name={{ ansible_serv }} state=reloaded
