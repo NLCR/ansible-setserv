@@ -1,7 +1,7 @@
 Role Name
 =========
 
-This is role for installing secured protocol on apache.
+This is role for installing secured protocol on apache/nginx. A lot work todo, pls firstly commentaries for advancement of the project.
 
 Requirements
 ------------
