@@ -1,6 +1,6 @@
 ---
-# tasks file for NLCR.apache
-#inspired by Ngins install by @flawless_retard
+# tasks file for ansible-setserv
+#inspired importantly by @flawless_retard
 #
 #- name: install system updates for centos systems
 #  yum: name=* state=latest update_cache=yes
@@ -26,20 +26,20 @@
      with_items:
 #         - libaugeas0
 #         - augeas-lenses
+         - git
          - augeas-libs
          - ca-certificates
          - libss-devel
-#
-#
    - name: Install Apache and certbot
      yum: name={{item}} state=present
      with_items: 
          - '{{ansible_serv}}'
          - mod_ssl
-#to rework         - python-certbot-{{ ansible_certbot_var }}
-#to rework   - name: Lets Encrypt client
-#     git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
+   - name: Lets Encrypt client
+     git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
 # Sustainability of apps
+   - name: 'Going to see daemons of IInd circle'
+     include: 'firewallIPtab.yml'
    - name: Services are running and starts after reboot
      service: name={{item}} state=started enabled=yes
      with_items:
@@ -48,9 +48,9 @@
      service: name={{item}} state=restarted
      with_items:
          - '{{ansible_serv}}'
-#
+#TO discuss
 #- name: remove default nginx default
 #  file: path=/etc/nginx/sites-enabled/default state=absent
-# https://weakdh.org/
+# https://weakdh.org/ TD consider 4096
    - name: Generate dhparams file
      shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048

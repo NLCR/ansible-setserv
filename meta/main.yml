@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Zdenko Vozar
-  description: NLCR Webarchiv apprentice
+  author: Zdenko Vozar (inspired by @geerlingui and @flawless_retard)
+  description: Component for automatization of HTTPS deploying
   company: NLCR
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -8,13 +8,13 @@ galaxy_info:
   # issue_tracker_url: http://example.com/issue/tracker
 
   # Some suggested licenses:
-  # - BSD (default)
+  # - BSD
   # - MIT
   # - GPLv2
   # - GPLv3
   # - Apache
   # - CC-BY
-  license: license (CC-BY)
+  license: BSD
 
   min_ansible_version: 1.2
 
@@ -32,6 +32,9 @@ galaxy_info:
   # platform on this list, let us know and we'll get it added!
   #
   #platforms:
+  - name: Centos
+    versions:
+     - 6.0
   #- name: OpenBSD
   #  versions:
   #  - all

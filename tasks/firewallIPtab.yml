@@ -1,0 +1,16 @@
+   - name: 'Ensuring that firewall is running'
+     service: name=firewalld state=started
+   - name: 'Playing with firewall and iptables'
+     command: firewall-cmd {{ item }}
+     with_items:
+       - --add-service=http
+       - --add-service=https
+       - --runtime-to-permanent
+   - name: 'Accepting ports'
+     command: iptables  -I INPUT -p tcp -m tcp --dport {{ item }}
+     with_items:
+       - 80 -j ACCEPT
+       - 443 -j ACCEPT
+       - 8080 -j ACCEPT
+   - name: 'Restarting deamons of fire'
+     service: name=firewalld state=restarted enabled=yes

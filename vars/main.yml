@@ -1,4 +1,10 @@
 ---
-# vars file for NLCR.apache
-
-ansible_serv_specific: "setApache"
+# global variables file for ansible-setserv
+ansible_serv: "httpd"
+#nginx
+ansible_owner: "apache"
+#www-data
+ansible_certbot_var: "apache"
+#Nginx
+#TD determine with when we want nginx and apache aka WHEN os_family...
+#TD determine linux family
