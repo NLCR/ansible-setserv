@@ -1,4 +1,0 @@
----
-# vars file for NLCR.apache
-
-ansible_serv_specific: "setApache"
