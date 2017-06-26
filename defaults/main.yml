@@ -1,8 +1,10 @@
 ---
 # global variables file for ansible-setserv
+# www_owner:
+# www_group:
+
 ansible_serv: "httpd"
 #nginx
-ansible_owner: "apache"
 #www-data
 ansible_certbot_var: "apache"
 #Nginx

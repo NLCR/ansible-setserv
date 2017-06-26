@@ -19,6 +19,12 @@
     state: present
 
 - name: 'Copying Webarchiv.cz'
-  copy: src="../files/webarchiv.cz" dest="/var/www/"  owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644
+  copy:
+    src: webarchiv.cz
+    dest: /var/www/
+    owner: '{{ www_owner | default(omit) }}'
+    group: '{{ www_group | default(omit) }}'
+    mode: 0644
+
 - name: 'Inluding certification for {{ ansible_serv }}'
   include: "certification.yml"
