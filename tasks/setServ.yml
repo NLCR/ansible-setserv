@@ -16,31 +16,31 @@
   package: 
     name: python, python-pip, python-devel, git, augeas-libs, ca-certificates, libss-devel # libaugeas0,  augeas-lenses
     state: present
-#
-   - name: Pexpect for unexpected
-     pip: name=pexpect state=present
 
-   - name: Install Apache and certbot
-     yum: name={{item}} state=present
-     with_items: 
-         - '{{ansible_serv}}'
-         - mod_ssl
-   - name: Lets Encrypt client
-     git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
+- name: Pexpect for unexpected
+  pip: name=pexpect state=present
+
+- name: Install Apache and certbot
+  yum: name={{item}} state=present
+  with_items: 
+      - '{{ansible_serv}}'
+      - mod_ssl
+- name: Lets Encrypt client
+  git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
 # Sustainability of apps
-   - name: 'Going to see daemons of IInd circle'
-     include: 'firewallIPtab.yml'
-   - name: Services are running and starts after reboot
-     service: name={{item}} state=started enabled=yes
-     with_items:
-           - '{{ansible_serv}}'
-   - name: Restarting services
-     service: name={{item}} state=restarted
-     with_items:
-         - '{{ansible_serv}}'
+- name: 'Going to see daemons of IInd circle'
+  include: 'firewallIPtab.yml'
+- name: Services are running and starts after reboot
+  service: name={{item}} state=started enabled=yes
+  with_items:
+        - '{{ansible_serv}}'
+- name: Restarting services
+  service: name={{item}} state=restarted
+  with_items:
+      - '{{ansible_serv}}'
 #TO discuss
 #- name: remove default nginx default
 #  file: path=/etc/nginx/sites-enabled/default state=absent
 # https://weakdh.org/ TD consider 4096
-   - name: Generate dhparams file
-     shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+- name: Generate dhparams file
+  shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
