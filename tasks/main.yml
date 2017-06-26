@@ -1,15 +1,12 @@
 ---
 #as template in part certification see also @flawless_retard and @geerlingui
-- hosts: front
-  gather_facts: yes
-  tasks:
 #vars to /defaults and dynamic /vars in final version 
-   - name: "Includind specific vars" 
-     include_vars:
-       file: '../vars/main.yml'
-   - name: 'Including SetServ playbook.'
-     include: "setServ.yml"
-   - name: 'Copying Webarchiv.cz'
-     copy: src="../files/webarchiv.cz" dest="/var/www/"  owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644
-   - name: 'Inluding certification for {{ ansible_serv }}'
-     include: "certification.yml"
+- name: "Includind specific vars" 
+  include_vars:
+    file: '../vars/main.yml'
+- name: 'Including SetServ playbook.'
+  include: "setServ.yml"
+- name: 'Copying Webarchiv.cz'
+  copy: src="../files/webarchiv.cz" dest="/var/www/"  owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644
+- name: 'Inluding certification for {{ ansible_serv }}'
+  include: "certification.yml"
