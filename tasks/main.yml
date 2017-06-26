@@ -10,6 +10,11 @@
   include: provision-SUSE.yml
   when: ansible_distribution == "openSUSE"
 
+- name: Pexpect for unexpected
+  pip:
+    name: pexpect
+    state: present
+
 - name: 'Copying Webarchiv.cz'
   copy: src="../files/webarchiv.cz" dest="/var/www/"  owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644
 - name: 'Inluding certification for {{ ansible_serv }}'

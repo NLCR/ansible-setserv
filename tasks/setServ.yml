@@ -13,9 +13,6 @@
 #- hosts: front
 #  tasks:
   
-- name: Pexpect for unexpected
-  pip: name=pexpect state=present
-
 - name: Install Apache and certbot
   yum: name={{item}} state=present
   with_items: 
