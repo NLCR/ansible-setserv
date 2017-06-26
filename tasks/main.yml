@@ -2,6 +2,9 @@
 #as template in part certification see also @flawless_retard and @geerlingui
 #vars to /defaults and dynamic /vars in final version 
 
+- name: 'Distro non-specific provision'
+  include: provision.yml
+
 - name: 'RedHat provision.'
   include: provision-RedHat.yml
   when: ansible_distribution == "CentOS"

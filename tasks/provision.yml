@@ -1,0 +1,4 @@
+- name: Install '{{ ansible_serv }}' and certbot
+  package: 
+    name: '{{ ansible_serv }},python,python-pip,python-devel,git'
+    state: present

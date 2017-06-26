@@ -13,11 +13,6 @@
 #- hosts: front
 #  tasks:
   
-- name: Install Apache and certbot
-  yum: name={{item}} state=present
-  with_items: 
-      - '{{ansible_serv}}'
-      - mod_ssl
 - name: Lets Encrypt client
   git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
 # Sustainability of apps
