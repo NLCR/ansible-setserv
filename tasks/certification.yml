@@ -1,7 +1,4 @@
 ---
-- name: "Includind specific vars" 
-  include_vars:
-    file: '../vars/certifvar.yml'
 #thanks to @flawless_retard
 - name: 'Create dirs'
   file: path=/etc/{{ ansible_serv }}/sites-available owner={{ ansible_owner }} group={{ ansible_owner }} state=link state=directory
