@@ -29,7 +29,9 @@
 #  file: src=/opt/certbot/certbot-auto dest=/certbot-auto  state=link
 
 - name: 'Reload {{ ansible_serv }}'
-  service: name={{ ansible_serv }} state=reloaded
+  service:
+    name: '{{ ansible_serv }}'
+    state: reloaded
 
 - name: 'Create certificate'
   shell: ./certbot-auto certonly --webroot --email {{ service_admin_email }} --agree-tos --webroot-path={{ webroot }} -d {{ service_host }} > ansible-certification.log;
