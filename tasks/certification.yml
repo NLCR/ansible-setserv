@@ -11,10 +11,21 @@
     - { path: '/etc/{{ ansible_serv }}/sites-enabled' }
 
 - name: 'Add http {{ ansible_serv }} configuration'
-  template: src=../files/http.conf.j2 dest=/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.http.conf owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644 
+  template:
+    src: http.conf.j2
+    dest: '/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.http.conf'
+    owner: '{{ www_owner | default(omit) }}'
+    group: '{{ www_owner | default(omit) }}'
+    mode: 0644
 
-- name: 'Add http {{ ansible_serv }} symlink'
-  file: src=/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.http.conf dest=/etc/{{ ansible_serv }}/sites-enabled/{{ service_name }}.http owner={{ ansible_owner }} group={{ ansible_owner }} state=link 
+- name: 'Add {{ ansible_serv }} vhost symlink'
+  file:
+    src: '/etc/{{ ansible_serv }}/sites-available/{{ service_name }}.http.conf'
+    dest: '/etc/{{ ansible_serv }}/sites-enabled/{{ service_name }}.http'
+    owner: '{{ www_owner | default(omit) }}'
+    group: '{{ www_group | default(omit) }}'
+    state: link
+
 #  file: src=/opt/certbot/certbot-auto dest=/certbot-auto  state=link
 
 - name: 'Reload {{ ansible_serv }}'
