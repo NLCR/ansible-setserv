@@ -12,11 +12,7 @@
 #
 #- hosts: front
 #  tasks:
-- name: OS provision
-  package: 
-    name: python, python-pip, python-devel, git, augeas-libs, ca-certificates, libss-devel # libaugeas0,  augeas-lenses
-    state: present
-
+  
 - name: Pexpect for unexpected
   pip: name=pexpect state=present
 
