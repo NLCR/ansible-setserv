@@ -1,2 +1,44 @@
 ---
-# defaults file for ansible-setserv
+# global variables file for ansible-setserv
+ansible_serv: "httpd"
+#nginx
+ansible_owner: "apache"
+#www-data
+ansible_certbot_var: "apache"
+#Nginx
+#TD determine with when we want nginx and apache aka WHEN os_family...
+#TD determine linux family
+
+#specific variables for certification of certification.yml
+webroot: "/var/www/webarchiv.cz/public_html"
+#www-data
+service_host: "www.webarchiv.cz"
+service_admin_email: "webarchiv@nkp.cz"
+service_name: "webarchiv"
+service_root_directory: "/var/www/"
+#TD
+letsencrypt_ssl_dir: "/etc/letsencrypt/live"
+#
+#
+#
+#
+#ssl_cert_country: "CZ"
+#ssl_cert_locality: "Klementinum"
+#ssl_cert_organization: "NLCR"
+#ssl_cert_state: "Prague"
+#ssl_cert_days: "365"
+#ssl_cert_email: "webarchiv@nkp.cz"
+#ssl_cert_common_name: "*.webarchiv.cz"
+#ssl_cert_fields: "/C={{ssl_cert_country}}/ST={{ssl_cert_state}}/L={{ssl_cert_locality}}/O={{ssl_cert_organization}}/CN={{ssl_cert_common_name}}"
+#TD
+#
+#ssl_cert_path: "/etc/ssl/{{ssl_cert_common_name}}"
+#/etc/pki/CA/private/account.key
+#ssl_cert_path_owner: "www-data"
+#ssl_cert_path_group: "www-data"
+#ssl_cert_privkey_path: "{{ssl_cert_path}}/{{ssl_cert_common_name}}.key"
+#ssl_cert_cert_path: "{{ssl_cert_path}}/{{ssl_cert_common_name}}.pem"
+#ssl_cert_csr_path: "{{ssl_cert_path}}/{{ssl_cert_common_name}}.csr"
+#ssl_cert_dhparam_path: "{{ssl_cert_path}}/dhparam.pem"
+#ssl_cert_mode: "0700"
+#ssl_cert_force_replace: yes
