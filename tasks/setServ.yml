@@ -12,24 +12,14 @@
 #
 #- hosts: front
 #  tasks:
-   - name: Install Pythian things
-     yum: name={{ item }} state=latest
-     with_items: 
-         - python
-         - python-pip
-         - python-devel
+- name: OS provision
+  package: 
+    name: python, python-pip, python-devel, git, augeas-libs, ca-certificates, libss-devel # libaugeas0,  augeas-lenses
+    state: present
 #
    - name: Pexpect for unexpected
      pip: name=pexpect state=present
-   - name: Install other important modules
-     yum: name={{ item }} state=present
-     with_items:
-#         - libaugeas0
-#         - augeas-lenses
-         - git
-         - augeas-libs
-         - ca-certificates
-         - libss-devel
+
    - name: Install Apache and certbot
      yum: name={{item}} state=present
      with_items: 
