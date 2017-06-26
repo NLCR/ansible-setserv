@@ -1,8 +1,15 @@
 ---
 #as template in part certification see also @flawless_retard and @geerlingui
 #vars to /defaults and dynamic /vars in final version 
-- name: 'Including SetServ playbook.'
-  include: "setServ.yml"
+
+- name: 'RedHat provision.'
+  include: provision-RedHat.yml
+  when: ansible_distribution == "CentOS"
+
+- name: 'SUSE provision.'
+  include: provision-SUSE.yml
+  when: ansible_distribution == "openSUSE"
+
 - name: 'Copying Webarchiv.cz'
   copy: src="../files/webarchiv.cz" dest="/var/www/"  owner={{ ansible_owner }} group={{ ansible_owner }} mode=0644
 - name: 'Inluding certification for {{ ansible_serv }}'

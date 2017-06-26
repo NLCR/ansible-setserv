@@ -1,0 +1,4 @@
+- name: Zypper provision
+  zypper:
+    name: python, python-pip, python-devel, git, ca-certificates # augeas-libs and libss-devel not found. libaugeas0,  augeas-lenses
+    state: present
